@@ -87,3 +87,19 @@ function understrap_child_customize_controls_js() {
 	);
 }
 add_action( 'customize_controls_enqueue_scripts', 'understrap_child_customize_controls_js' );
+
+// Hide date last modified
+add_filter( 'understrap_posted_on_time', 'prefix_hide_modified' );
+function prefix_hide_modified() {
+		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+		$time_string = sprintf(
+			$time_string,
+			esc_attr( get_the_date( 'c' ) ),
+			esc_html( get_the_date() )
+		);
+		return $time_string;
+}
+
+// Hide posted by
+add_filter( 'understrap_posted_by', '__return_false' );
+?>
